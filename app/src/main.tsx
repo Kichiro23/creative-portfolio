@@ -1,13 +1,13 @@
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router'
+import { HashRouter } from 'react-router'
 import './index.css'
 import { ThemeProvider } from "@/providers/theme"
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
-  <BrowserRouter>
+  <HashRouter>
     <ThemeProvider>
       <App />
     </ThemeProvider>
-  </BrowserRouter>,
+  </HashRouter>,
 )
