@@ -5,7 +5,6 @@ import { defineConfig } from "vite"
 import { inspectAttr } from 'kimi-plugin-inspect-react'
 
 export default defineConfig({
-  base: "/creative-portfolio/",
   plugins: [inspectAttr(), react()],
   server: {
     port: 3000,
