@@ -1,115 +1,137 @@
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { api } from "@/lib/api";
-import { Calendar, MapPin } from "lucide-react";
+import { Briefcase, Calendar, ExternalLink } from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
-
-interface ExperienceItem {
-  _id: string;
-  title: string;
-  company: string;
-  startDate: string;
-  endDate: string;
-  current: boolean;
-  description: string;
-  highlights?: string;
-  location?: string;
-}
+const experiences = [
+  {
+    role: "IT & Technical Support Specialist",
+    company: "Freelance",
+    period: "2020 – Present",
+    bullets: [
+      "Delivered end-to-end IT services to 4+ clients — covering network setup, hardware/software troubleshooting, website management, and performance monitoring.",
+      "Managed cloud-hosted environments, ensuring uptime, data integrity, and smooth operations for client sites.",
+    ],
+    tags: ["Network Setup", "Cloud Hosting", "Troubleshooting", "System Admin"],
+  },
+  {
+    role: "Social Media Manager",
+    company: "Freelance",
+    period: "2022 – 2024",
+    bullets: [
+      "Managed accounts for 5+ brands across food, retail, and events — handling content planning, creation, scheduling, and audience engagement.",
+      "Consistently met weekly content deadlines across multiple clients without supervision.",
+    ],
+    tags: ["Content Strategy", "Brand Management", "Scheduling", "Engagement"],
+  },
+  {
+    role: "Graphic Designer & Video Editor",
+    company: "Freelance",
+    period: "2020 – 2024",
+    bullets: [
+      "Produced 200+ graphic and video outputs (reels, AVPs, promotional clips, banners) for clients in food, retail, events, and service industries.",
+    ],
+    tags: ["Adobe Premiere", "After Effects", "Photoshop", "Canva", "CapCut"],
+  },
+];
 
 export default function Experience() {
+  const [inView, setInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const [experiences, setExperiences] = useState<ExperienceItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    api.portfolio.experiences()
-      .then((res) => setExperiences(res.data))
-      .catch(() => setExperiences([]))
-      .finally(() => setIsLoading(false));
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setInView(true);
+      },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (!experiences.length || isLoading) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(".exp-headline", { opacity: 0, y: 20 }, {
-        opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 75%", toggleActions: "play none none reverse" },
-      });
-      gsap.fromTo(".exp-item", { opacity: 0, x: -20 }, {
-        opacity: 1, x: 0, duration: 0.7, ease: "power3.out", stagger: 0.12,
-        scrollTrigger: { trigger: sectionRef.current, start: "top 70%", toggleActions: "play none none reverse" },
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, [experiences, isLoading]);
 
   return (
     <section
       ref={sectionRef}
       id="experience"
-      className="relative w-full py-24 md:py-32 overflow-hidden"
-      style={{ background: "var(--bg-void)" }}
+      className="relative py-24 md:py-32 px-4 sm:px-6"
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 md:mb-16">
-          <span className="inline-block text-xs font-medium tracking-[0.15em] uppercase mb-4" style={{ color: "var(--accent-violet)" }}>
-            Career Journey
-          </span>
-          <h2
-            className="font-semibold tracking-tight"
-            style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "var(--text-primary)", letterSpacing: "-0.02em" }}
-          >
-            Work <span className="text-gradient-violet">Experience</span>
+      <div className="max-w-4xl mx-auto">
+        {/* Section Header */}
+        <div
+          className={`text-center mb-16 transition-all duration-700 ${
+            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6">
+            <span className="w-2 h-2 rounded-full bg-[var(--accent-teal)] animate-pulse" />
+            <span className="text-sm font-medium text-[var(--text-secondary)]">Work Experience</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--text-primary)] tracking-tight mb-4">
+            Proven track record of{" "}
+            <span className="text-gradient-teal">delivery</span>
           </h2>
+          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
+            Years of freelance experience delivering results across IT, creative, and digital marketing domains.
+          </p>
         </div>
 
-        {isLoading ? (
-          <div className="space-y-6">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="rounded-[28px] animate-pulse" style={{ background: "var(--bg-surface)", height: 140 }} />
-            ))}
-          </div>
-        ) : (
-          <div className="relative">
-            <div className="absolute left-[11px] top-0 bottom-0 w-px hidden sm:block" style={{ background: "rgba(255,255,255,0.08)" }} />
-            <div className="space-y-6">
-              {experiences.map((exp) => (
-                <div key={exp._id} className="exp-item opacity-0 relative pl-0 sm:pl-10">
-                  <div className="absolute left-[6px] top-3 w-2.5 h-2.5 rounded-full hidden sm:block" style={{ background: "var(--accent-violet)" }} />
-                  <div className="liquid-glass p-5 sm:p-6">
-                    <div className="relative z-10">
-                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
-                        <div>
-                          <h3 className="font-semibold text-base" style={{ color: "var(--text-primary)" }}>
-                            {exp.title}
-                          </h3>
-                          <p className="text-sm font-medium" style={{ color: "var(--accent-violet)" }}>
-                            {exp.company}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-1 text-xs" style={{ color: "var(--text-muted)" }}>
-                          <Calendar className="w-3 h-3" />
-                          {exp.startDate} – {exp.current ? "Present" : exp.endDate}
-                        </div>
-                      </div>
-                      <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-                        {exp.description}
-                      </p>
-                      {exp.location && (
-                        <div className="mt-3 flex items-center gap-1 text-xs" style={{ color: "var(--text-muted)" }}>
-                          <MapPin className="w-3 h-3" />
-                          {exp.location}
-                        </div>
-                      )}
-                    </div>
+        {/* Timeline */}
+        <div className="relative">
+          {/* Vertical line */}
+          <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--accent-indigo)] via-[var(--accent-slate)] to-[var(--accent-teal)] opacity-25" />
+
+          <div className="space-y-8">
+            {experiences.map((exp, i) => (
+              <div
+                key={exp.role}
+                className={`relative pl-16 md:pl-20 transition-all duration-700 ${
+                  inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"
+                }`}
+                style={{ transitionDelay: `${i * 150}ms` }}
+              >
+                {/* Dot */}
+                <div className="absolute left-4 md:left-6 top-2 w-4 h-4 rounded-full border-2 border-[var(--accent-indigo)] bg-[var(--bg-void)] z-10" />
+
+                <div className="glass-card p-6 md:p-8">
+                  <div className="flex flex-wrap items-center gap-3 mb-3">
+                    <Briefcase className="w-4 h-4 text-[var(--accent-indigo)]" />
+                    <h3 className="text-lg font-semibold text-[var(--text-primary)]">
+                      {exp.role}
+                    </h3>
+                    <span className="text-sm text-[var(--text-muted)]">| {exp.company}</span>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-sm text-[var(--text-muted)] mb-4">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {exp.period}
+                  </div>
+
+                  <ul className="space-y-2 mb-4">
+                    {exp.bullets.map((bullet, bi) => (
+                      <li
+                        key={bi}
+                        className="text-sm text-[var(--text-secondary)] leading-relaxed flex items-start gap-2"
+                      >
+                        <ExternalLink className="w-3 h-3 mt-1 shrink-0 text-[var(--text-muted)]" />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex flex-wrap gap-2">
+                    {exp.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-[var(--text-secondary)] border border-white/5"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

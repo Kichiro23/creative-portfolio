@@ -1,125 +1,224 @@
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { api } from "@/lib/api";
-import { ExternalLink } from "lucide-react";
+import { ArrowUpRight, Globe, ShoppingBag, BarChart3, Lock, Database } from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
-
-interface Project {
-  _id: string;
-  name: string;
-  slug: string;
-  description: string;
-  image: string;
-  techStack: string;
-  liveUrl?: string;
-}
+const projects = [
+  {
+    title: "CARP — Climate & Air Research Platform",
+    role: "Lead Developer (Full Stack)",
+    period: "2025 – 2026",
+    description:
+      "WeatherCarp is a full-stack environmental monitoring platform delivering real-time weather, air quality, and multi-domain environmental data to global users.",
+    highlights: [
+      "React 19 + TypeScript frontend, Node.js/Express backend, MongoDB Atlas",
+      "Integrated 5+ APIs: Open-Meteo, Google Gemini AI, REST Countries",
+      "JWT + Google OAuth 2.0 authentication, user location saving",
+      "Leaflet.js live maps, Chart.js visualizations, historical weather analysis",
+      "AI chatbot assistant, multi-domain monitoring",
+      "Deployed on Hostinger/Render with full database schema design",
+    ],
+    stack: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express", "MongoDB", "Vite"],
+    liveUrl: "https://weathercarp.com",
+    image: "/projects/carp.png",
+    gradient: "from-[var(--accent-indigo)] to-[var(--accent-violet)]",
+    icon: Globe,
+  },
+  {
+    title: "E-Commerce Management System",
+    role: "Full Stack Developer",
+    period: "2024",
+    description:
+      "A comprehensive e-commerce dashboard with real-time sales analytics, inventory management, order tracking, and revenue reporting.",
+    highlights: [
+      "Real-time sales analytics with interactive charts and KPI tracking",
+      "Product inventory management with stock level alerts",
+      "Order management pipeline with status tracking",
+      "Revenue overview dashboard with trend analysis",
+    ],
+    stack: ["React", "Node.js", "MongoDB", "Chart.js", "Stripe"],
+    image: "/projects/ecommerce.jpg",
+    gradient: "from-[var(--accent-slate)] to-[var(--accent-cyan)]",
+    icon: ShoppingBag,
+  },
+  {
+    title: "AI Co-Pilot Dashboard",
+    role: "AI Automation Engineer",
+    period: "2024",
+    description:
+      "An intelligent automation platform with multi-agent LLM orchestration, webhook processing, and document analysis pipelines.",
+    highlights: [
+      "Multi-agent pipeline visualization with LLM core network",
+      "Real-time webhook logs and event processing",
+      "Document processing pipeline with RAG integration",
+      "AI chat interface with context-aware responses",
+    ],
+    stack: ["Python", "LangChain", "CrewAI", "FastAPI", "React"],
+    image: "/projects/ai-dashboard.jpg",
+    gradient: "from-[var(--accent-teal)] to-[var(--accent-indigo)]",
+    icon: BarChart3,
+  },
+  {
+    title: "Cloud Infrastructure Architecture",
+    role: "DevOps Engineer",
+    period: "2023",
+    description:
+      "End-to-end cloud infrastructure design spanning AWS, GCP, and Kubernetes with automated CI/CD pipelines and security monitoring.",
+    highlights: [
+      "Multi-cloud Kubernetes orchestration across AWS and GCP",
+      "Automated CI/CD pipeline from code to deployment",
+      "Containerized microservices with Docker",
+      "Security monitoring and compliance architecture",
+    ],
+    stack: ["AWS", "GCP", "Kubernetes", "Docker", "CI/CD", "Terraform"],
+    image: "/projects/cloud-infra.jpg",
+    gradient: "from-[var(--accent-cyan)] to-[var(--accent-indigo)]",
+    icon: Lock,
+  },
+  {
+    title: "Database Management System",
+    role: "Independent Project",
+    period: "2021 – 2022",
+    description:
+      "A MySQL-based inventory management system with full CRUD operations, relational schemas, and an intuitive query editor interface.",
+    highlights: [
+      "Full CRUD operations with structured relational schemas",
+      "SQL query editor with syntax highlighting",
+      "Real-time database load monitoring and performance metrics",
+      "Storage usage analytics and query performance tracking",
+    ],
+    stack: ["MySQL", "SQL", "Database Design", "React"],
+    image: "/projects/dbms.jpg",
+    gradient: "from-[var(--accent-violet)] to-[var(--accent-slate)]",
+    icon: Database,
+  },
+];
 
 export default function Projects() {
+  const [inView, setInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    api.projects.featured()
-      .then((res) => setProjects(res.data))
-      .catch(() => setProjects([]))
-      .finally(() => setIsLoading(false));
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setInView(true);
+      },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (!projects.length || isLoading) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(".proj-headline", { opacity: 0, y: 20 }, {
-        opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 75%", toggleActions: "play none none reverse" },
-      });
-      gsap.fromTo(".proj-card", { opacity: 0, y: 30 }, {
-        opacity: 1, y: 0, duration: 0.7, ease: "power3.out", stagger: 0.15,
-        scrollTrigger: { trigger: sectionRef.current, start: "top 70%", toggleActions: "play none none reverse" },
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, [projects, isLoading]);
 
   return (
     <section
       ref={sectionRef}
       id="projects"
-      className="relative w-full py-24 md:py-32 overflow-hidden"
-      style={{ background: "var(--bg-void)" }}
+      className="relative py-24 md:py-32 px-4 sm:px-6"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 md:mb-16">
-          <span className="inline-block text-xs font-medium tracking-[0.15em] uppercase mb-4" style={{ color: "var(--accent-coral)" }}>
-            Portfolio
-          </span>
-          <h2
-            className="font-semibold tracking-tight"
-            style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "var(--text-primary)", letterSpacing: "-0.02em" }}
-          >
-            Featured <span className="text-gradient-violet">Projects</span>
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
+        <div
+          className={`text-center mb-16 transition-all duration-700 ${
+            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6">
+            <span className="w-2 h-2 rounded-full bg-[var(--accent-cyan)] animate-pulse" />
+            <span className="text-sm font-medium text-[var(--text-secondary)]">Selected Work</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--text-primary)] tracking-tight mb-4">
+            Built with{" "}
+            <span className="text-gradient-indigo">precision</span>
           </h2>
+          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
+            From production-grade platforms to independent experiments — every project is a chance to push boundaries.
+          </p>
         </div>
 
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {[1, 2].map((i) => (
-              <div key={i} className="rounded-[28px] animate-pulse" style={{ background: "var(--bg-surface)", height: 320 }} />
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {projects.map((project) => (
-              <div
-                key={project._id}
-                className="proj-card opacity-0 liquid-glass overflow-hidden group"
-              >
-                <div className="relative aspect-video overflow-hidden">
+        {/* Projects Grid */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {projects.map((project, i) => (
+            <div
+              key={project.title}
+              className={`glass-card overflow-hidden transition-all duration-700 ${
+                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              } ${i === 0 ? "md:col-span-2" : ""}`}
+              style={{ transitionDelay: `${i * 120}ms` }}
+            >
+              {/* Project Image */}
+              <div className="relative overflow-hidden group">
+                <div className={`aspect-[16/9] ${i === 0 ? "md:aspect-[21/9]" : ""}`}>
                   <img
-                    src={project.image || "/project-carp.jpg"}
-                    alt={project.name}
+                    src={project.image}
+                    alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
                   />
                 </div>
-                <div className="relative z-10 p-5 sm:p-6">
-                  <h3 className="font-semibold text-lg" style={{ color: "var(--text-primary)" }}>
-                    {project.name}
-                  </h3>
-                  <p className="mt-2 text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
-                    {project.description}
-                  </p>
-                  {project.techStack && (
-                    <div className="flex flex-wrap gap-1.5 mt-4">
-                      {project.techStack.split(",").slice(0, 4).map((tech) => (
-                        <span
-                          key={tech.trim()}
-                          className="px-2 py-0.5 text-[11px] font-medium rounded-full"
-                          style={{ background: "rgba(255,255,255,0.06)", color: "var(--text-muted)", border: "1px solid rgba(255,255,255,0.08)" }}
-                        >
-                          {tech.trim()}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-4 inline-flex items-center gap-1 text-sm font-medium"
-                      style={{ color: "var(--accent-coral)" }}
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-void)] via-transparent to-transparent opacity-60" />
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute top-4 right-4 p-2.5 rounded-full glass-pill text-[var(--text-primary)] hover:text-[var(--accent-indigo)] transition-colors"
+                  >
+                    <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                )}
+              </div>
+
+              <div className="p-6 md:p-8">
+                {/* Header */}
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`w-10 h-10 rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center`}
                     >
-                      <ExternalLink className="w-3 h-3" /> Live Demo
-                    </a>
-                  )}
+                      <project.icon className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider">
+                        {project.role} · {project.period}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-3 hover:text-gradient-indigo transition-all">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+                  {project.description}
+                </p>
+
+                {/* Highlights */}
+                <ul className="space-y-1.5 mb-5">
+                  {project.highlights.map((h, hi) => (
+                    <li
+                      key={hi}
+                      className="text-xs text-[var(--text-secondary)] flex items-start gap-2"
+                    >
+                      <span
+                        className={`w-1 h-1 rounded-full mt-1.5 shrink-0 bg-gradient-to-r ${project.gradient}`}
+                      />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Stack */}
+                <div className="flex flex-wrap gap-2">
+                  {project.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2.5 py-1 text-xs font-medium rounded-full bg-white/5 text-[var(--text-secondary)] border border-white/5"
+                    >
+                      {tech}
+                    </span>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
