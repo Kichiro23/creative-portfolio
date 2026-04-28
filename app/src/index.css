@@ -1,0 +1,289 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* iOS 26 Liquid Glass — Warm, Vibrant, Deep (DARK) */
+    --bg-void: #06040a;
+    --bg-surface: #0f0d16;
+    --bg-elevated: #171528;
+    --text-primary: #f0ece4;
+    --text-secondary: #8a8498;
+    --text-muted: #4d4660;
+
+    /* Vibrant iOS 26 Accents */
+    --accent-coral: #ff6b35;
+    --accent-violet: #a78bfa;
+    --accent-mint: #06d6a0;
+    --accent-amber: #fbbf24;
+    --accent-pink: #f472b6;
+
+    /* Liquid Glass */
+    --glass-bg: rgba(255, 255, 255, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-highlight: rgba(255, 255, 255, 0.08);
+    --glass-blur: 40px;
+
+    /* shadcn overrides for iOS 26 */
+    --background: 260 40% 2%;
+    --foreground: 30 20% 92%;
+    --card: 260 30% 6%;
+    --card-foreground: 30 20% 92%;
+    --popover: 260 30% 6%;
+    --popover-foreground: 30 20% 92%;
+    --primary: 18 100% 60%;
+    --primary-foreground: 260 40% 2%;
+    --secondary: 260 20% 12%;
+    --secondary-foreground: 30 20% 92%;
+    --muted: 260 20% 12%;
+    --muted-foreground: 260 10% 55%;
+    --accent: 18 100% 60%;
+    --accent-foreground: 260 40% 2%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 260 15% 16%;
+    --input: 260 15% 16%;
+    --ring: 18 100% 60%;
+    --radius: 1.75rem;
+  }
+
+  .light {
+    /* LIGHT MODE */
+    --bg-void: #f5f5f7;
+    --bg-surface: #ffffff;
+    --bg-elevated: #fafafa;
+    --text-primary: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --text-muted: #a1a1a6;
+
+    --accent-coral: #ff5a1f;
+    --accent-violet: #7c5cfc;
+    --accent-mint: #00b894;
+    --accent-amber: #f39c12;
+    --accent-pink: #e84393;
+
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --glass-highlight: rgba(255, 255, 255, 0.5);
+    --glass-blur: 30px;
+
+    --background: 0 0% 97%;
+    --foreground: 240 6% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 6% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 6% 10%;
+    --primary: 18 100% 56%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 6% 10%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 18 100% 56%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 18 100% 56%;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    background-color: var(--bg-void);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  ::selection {
+    background-color: rgba(255, 107, 53, 0.35);
+    color: var(--text-primary);
+  }
+
+  * {
+    @apply border-border;
+  }
+}
+
+@layer components {
+  /* iOS 26 Liquid Glass Card */
+  .liquid-glass {
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .light .liquid-glass {
+    background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.5) 100%);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+  .liquid-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.4px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.05) 70%, rgba(255,255,255,0.25) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.15;
+  }
+  .light .liquid-glass::before {
+    opacity: 0.3;
+  }
+  .liquid-glass::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(ellipse 90% 40% at 50% 0%, rgba(255,255,255,0.18) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 35% at 65% 10%, rgba(255,255,255,0.08) 0%, transparent 50%);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  .light .liquid-glass::after {
+    background: radial-gradient(ellipse 90% 40% at 50% 0%, rgba(255,255,255,0.6) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 35% at 65% 10%, rgba(255,255,255,0.3) 0%, transparent 50%);
+  }
+
+  /* iOS 26 Glow Button */
+  .btn-glow {
+    position: relative;
+    border-radius: 9999px;
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--bg-void);
+    background: linear-gradient(135deg, var(--accent-coral), #ff8f65);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 0 0 rgba(255, 107, 53, 0), 0 4px 20px rgba(255, 107, 53, 0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .light .btn-glow {
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+  .btn-glow:hover {
+    box-shadow: 0 0 30px rgba(255, 107, 53, 0.35), 0 8px 30px rgba(255, 107, 53, 0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+    transform: translateY(-2px);
+  }
+  .btn-glow:active {
+    transform: scale(0.96) translateY(0);
+    box-shadow: 0 0 15px rgba(255, 107, 53, 0.2), 0 2px 10px rgba(255, 107, 53, 0.2);
+  }
+
+  /* iOS 26 Ghost Button */
+  .btn-ghost {
+    position: relative;
+    border-radius: 9999px;
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(20px);
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .light .btn-ghost {
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: var(--text-primary);
+  }
+  .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  .light .btn-ghost:hover {
+    background: rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+  .btn-ghost:active {
+    transform: scale(0.96);
+  }
+}
+
+@layer utilities {
+  .text-gradient-coral {
+    background: linear-gradient(135deg, var(--accent-coral), var(--accent-amber));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-violet {
+    background: linear-gradient(135deg, var(--accent-violet), var(--accent-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-mint {
+    background: linear-gradient(135deg, var(--accent-mint), #4ade80);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-coral {
+    box-shadow: 0 0 40px rgba(255, 107, 53, 0.2), 0 0 80px rgba(255, 107, 53, 0.08);
+  }
+  .glow-violet {
+    box-shadow: 0 0 40px rgba(167, 139, 250, 0.2), 0 0 80px rgba(167, 139, 250, 0.08);
+  }
+  .glow-mint {
+    box-shadow: 0 0 40px rgba(6, 214, 160, 0.2), 0 0 80px rgba(6, 214, 160, 0.08);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile tap highlight removal */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent 300ms tap delay */
+html {
+  touch-action: manipulation;
+}

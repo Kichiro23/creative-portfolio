@@ -1,0 +1,23 @@
+{
+  "name": "portfolio-server",
+  "version": "1.0.0",
+  "description": "Express + MongoDB backend for portfolio",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "seed": "node utils/seed.js"
+  },
+  "dependencies": {
+    "bcryptjs": "latest",
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "express-rate-limit": "latest",
+    "express-validator": "latest",
+    "jsonwebtoken": "latest",
+    "mongoose": "latest",
+    "zod": "latest"
+  }
+}
