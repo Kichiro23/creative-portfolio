@@ -6,8 +6,6 @@
 
 A premium portfolio built with React 19, TypeScript, and Vite. Features a cinematic glass-morphism design, canvas aurora background, light/dark mode, and real project screenshots.
 
-![Portfolio Preview](https://rommel-deleon.vercel.app/projects/carp.png)
-
 ## What I Do
 
 - **Full Stack Development** — React, TypeScript, Node.js, Express, MongoDB, REST APIs
