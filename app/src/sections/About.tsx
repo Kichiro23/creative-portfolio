@@ -5,32 +5,32 @@ const attributes = [
   {
     icon: Zap,
     title: "Fast Learner",
-    desc: "Quickly adapts to new technologies and frameworks with minimal supervision.",
+    desc: "I pick up new frameworks and tools quickly — usually before the documentation is fully read.",
   },
   {
     icon: Shield,
-    title: "Detail Oriented",
-    desc: "Strong attention to detail and accuracy in every line of code and design.",
+    title: "Detail Obsessed",
+    desc: "Pixel-perfect UI, clean code, and smooth animations. The small things matter.",
   },
   {
     icon: Wrench,
     title: "Problem Solver",
-    desc: "Reliable troubleshooter who works effectively under pressure.",
+    desc: "I enjoy breaking down complex problems and building things that actually work under pressure.",
   },
   {
     icon: Code2,
     title: "Full Stack",
-    desc: "End-to-end development from database schema to polished UI.",
+    desc: "From database schemas to polished interfaces — I handle the entire flow, not just pieces.",
   },
   {
     icon: Server,
     title: "Cloud Native",
-    desc: "Experienced with AWS, GCP, Azure, Docker, and Kubernetes deployments.",
+    desc: "AWS, GCP, Docker, Kubernetes. I deploy and manage infrastructure that stays up.",
   },
   {
     icon: Palette,
-    title: "Creative Pro",
-    desc: "200+ graphic and video outputs for brands across multiple industries.",
+    title: "Creative at Core",
+    desc: "200+ graphics and videos for brands. Design thinking isn't an afterthought — it's baked in.",
   },
 ];
 
@@ -66,15 +66,27 @@ export default function About() {
             <span className="w-2 h-2 rounded-full bg-[var(--accent-indigo)] animate-pulse" />
             <span className="text-sm font-medium text-[var(--text-secondary)]">About Me</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--text-primary)] tracking-tight mb-4">
-            Solutions Expert &{" "}
-            <span className="text-gradient-indigo">Creative Mind</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--text-primary)] tracking-tight mb-6">
+            I build things that{" "}
+            <span className="text-gradient-indigo">work beautifully</span>
           </h2>
-          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
-            I bridge the gap between complex technical challenges and beautiful user experiences. 
-            With expertise spanning full-stack development, AI automation, cloud infrastructure, 
-            and creative production, I deliver end-to-end solutions that scale.
-          </p>
+          <div className="max-w-2xl mx-auto space-y-4 text-[var(--text-secondary)] leading-relaxed">
+            <p>
+              I'm Rommel — a full-stack developer and AI automation engineer based in the Philippines. 
+              I started out fixing networks and editing videos for local brands, then fell deep into code 
+              and never really looked back.
+            </p>
+            <p>
+              These days I spend most of my time building web apps, automating workflows with AI, and 
+              deploying cloud infrastructure. But I still bring that creative eye from my design days — 
+              because functionality without good UX is just a tool nobody wants to use.
+            </p>
+            <p>
+              I've worked with 5+ brands across food, retail, and events. Delivered 200+ creative outputs. 
+              Managed IT infrastructure for multiple clients. And somewhere in between, I taught myself 
+              React, Python, cloud architecture, and how to make LLMs actually useful.
+            </p>
+          </div>
         </div>
 
         {/* Attribute Cards */}

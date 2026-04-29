@@ -1,86 +1,68 @@
 # Rommel De Leon — Portfolio
 
-A premium full-stack portfolio website with a cinematic, Apple-inspired design. Features glass morphism cards, animated canvas background, light/dark mode, and real project screenshots.
+> Full Stack Developer · AI Automation Engineer · Creative Professional
 
-## Live Demo
+**Live site:** [rommel-deleon.vercel.app](https://rommel-deleon.vercel.app/)
 
-- **Frontend**: React 19 + TypeScript + Vite + Tailwind CSS
-- **Backend**: Hono + tRPC + Drizzle ORM + MySQL
-- **Database**: PlanetScale / MySQL compatible
+A premium portfolio built with React 19, TypeScript, and Vite. Features a cinematic glass-morphism design, canvas aurora background, light/dark mode, and real project screenshots.
 
-## Design Language
+![Portfolio Preview](https://rommel-deleon.vercel.app/projects/carp.png)
 
-| Principle | Implementation |
-|-----------|---------------|
-| **Glass Morphism** | `glass-card` CSS class with refraction highlight and specular sheen |
-| **Premium dark mode** | `#0f1115` — refined charcoal, not pitch black |
-| **Cool accents** | Indigo `#6366f1`, Slate `#8b9dc3`, Teal `#5eead4` |
-| **Glowing buttons** | Gradient fills with subtle colored glow on hover |
-| **Soft rounding** | 24px on cards, pill-shaped navbar |
-| **Text gradients** | Indigo-to-lavender gradient text for emphasis |
-| **Canvas aurora** | Animated color blobs with subtle grid overlay |
-| **Lenis smooth scroll** | Silky scroll with GSAP ScrollTrigger sync |
+## What I Do
 
-## Sections
+- **Full Stack Development** — React, TypeScript, Node.js, Express, MongoDB, REST APIs
+- **AI & Automation** — LangChain, CrewAI, LLM pipelines, RAG, N8N, Zapier
+- **Cloud & DevOps** — AWS, GCP, Docker, Kubernetes, CI/CD
+- **Creative Production** — Figma, Adobe Suite, video editing, social media content
 
-1. **Hero** — Profile photo card with skill bars, stat counters, animated badge
-2. **About** — 6 attribute cards with scroll-triggered entrance animations
-3. **Skills** — 8 category cards with color-coded technology pills
-4. **Experience** — Vertical timeline with glass cards and role tags
-5. **Work** — 5 project cards with real screenshots, tech stack tags, hover zoom
-6. **Tools** — 8 tool category cards with technology tags
-7. **Certifications** — Cisco & Huawei certs + core attributes + availability
-8. **Contact** — Contact info, social links with brand colors, CTA card
-9. **Admin** — Protected admin dashboard (existing tRPC backend)
+## Featured Projects
 
-## Project Screenshots
-
-Real project images are displayed in the Work section:
-- `/projects/carp.png` — Climate & Air Research Platform
-- `/projects/ecommerce.jpg` — E-Commerce Management Dashboard
-- `/projects/ai-dashboard.jpg` — AI Co-Pilot Dashboard
-- `/projects/cloud-infra.jpg` — Cloud Infrastructure Architecture
-- `/projects/dbms.jpg` — Database Management System
+| Project | Stack | Link |
+|---------|-------|------|
+| **CARP** — Climate & Air Research Platform | React 19, TypeScript, Node.js, MongoDB | [weathercarp.com](https://weathercarp.com) |
+| **AI Co-Pilot Dashboard** | Python, LangChain, FastAPI, React | Private |
+| **E-Commerce Platform** | React, Node.js, Stripe, Shopify API | Private |
+| **Cloud Infrastructure** | AWS, GCP, Kubernetes, Terraform | Private |
 
 ## Tech Stack
 
-**Frontend:** React 19 + TypeScript + Vite + Tailwind CSS + GSAP ScrollTrigger + Lenis + tRPC client
-**Backend:** Hono + tRPC 11 + Drizzle ORM + MySQL + Kimi OAuth 2.0
+**Frontend:** React 19 · TypeScript · Vite · Tailwind CSS · GSAP · Lenis
 
-## Features
+**Backend:** Hono · tRPC · Drizzle ORM · MySQL
 
-- Canvas-based animated aurora background (adapts to light/dark mode)
-- Glass morphism surfaces with refraction highlights
-- Indigo glow buttons with gradient fills
-- Type-safe API via tRPC + Zod validation
-- Contact form with real-time database persistence
-- Admin dashboard (protected route, admin-only)
-- Light & Dark mode with system preference detection
-- Lenis smooth scroll synced with GSAP ScrollTrigger
-- Scroll-triggered entrance animations on every section
-- Profile photo with online status indicator
+**Design:** Custom glass-morphism system · Canvas animations · Responsive (320px → 1440px)
 
-## Getting Started
+## Design Highlights
+
+- **Glass morphism cards** with refraction highlights and specular sheen
+- **Canvas aurora background** — animated indigo/slate/teal blobs with subtle grid
+- **Light & Dark mode** with system preference detection
+- **Scroll-triggered animations** on every section
+- **Pill-shaped translucent navbar** with blur backdrop
+- **Indigo glow buttons** with gradient fills and hover lift
+
+## Run Locally
 
 ```bash
+cd app
 npm install
-npm run db:push      # Sync schema
-npm run db:seed      # Seed initial data
-npm run dev          # Dev server at localhost:3000
-npm run build        # Production build
-npm start            # Start production server
+npm run dev      # localhost:3000
+npm run build    # Production build → dist/public
 ```
 
 ## Deployment
 
-**Fullstack:** Deploy the entire `dist/` folder to Render, Railway, or Fly.io.
-**Frontend only:** Deploy `dist/public/` to Vercel, Netlify, or Cloudflare Pages.
+Deployed on **Vercel** with GitHub Actions auto-deploy on every push to `main`.
 
-## Mobile Optimization
-- Touch targets: 48px minimum
-- Responsive: 320px → 1440px
-- Pill navbar with mobile dropdown
-- Reduced motion support
+## Contact
 
-## License
+- **Email:** rommeld216@gmail.com
+- **Phone:** +63 962 790 5910
+- **Location:** Malolos, Bulacan, Philippines
+- **LinkedIn:** [linkedin.com/in/rommel-andrei-de-leon-36ba8b291](https://www.linkedin.com/in/rommel-andrei-de-leon-36ba8b291/)
+
+Open to remote, part-time, and project-based work.
+
+---
+
 MIT © Rommel Andrei De Leon
