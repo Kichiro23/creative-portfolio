@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router";
+import { Analytics } from "@vercel/analytics/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -62,6 +63,7 @@ function Home() {
 export default function App() {
   return (
     <>
+      <Analytics />
       <AuroraBackground />
       <Navbar />
       <Routes>
