@@ -1,4 +1,6 @@
 {
+  "buildCommand": "mv api api-bak && vite build && mv api-bak api",
+  "outputDirectory": "dist/public",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
